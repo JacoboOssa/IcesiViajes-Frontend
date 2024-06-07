@@ -191,7 +191,7 @@ export default function TablePlanes() {
                         <Button leftIcon={<IoMdAdd />} colorScheme="blue" onClick={() => navigate('/crearplanes')} mt={20} mb={-20}>Nuevo Plan</Button>
                         <>
                             {role === "ADMIN" && (<Button leftIcon={<IoMdAdd />} colorScheme="blue" mt={20} mb={-20} ml={-30}>Nuevo Destino</Button>)}
-                            <Button leftIcon={<IoMdAdd />} onClick={onOpen} colorScheme="blue" mt={20} mb={-20} ml={-30}>Nuevo Destino</Button>
+                            {/* <Button leftIcon={<IoMdAdd />} onClick={onOpen} colorScheme="blue" mt={20} mb={-20} ml={-30}>Nuevo Destino</Button> */}
                             <Modal isOpen={isOpen} onClose={onClose}>
                                 <ModalOverlay />
                                 <ModalContent>

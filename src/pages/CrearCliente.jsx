@@ -8,6 +8,7 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 
 export default function CrearCliente() {
+  const [role, setRole] = useState("");
   const [user, setUser] = useState("");
   const [tipoId, setTipoId] = useState([]);
   const [successMessage, setSuccessMessage] = useState("");
@@ -19,6 +20,8 @@ export default function CrearCliente() {
       const decoded = jwtDecode(token);
       const name = decoded.sub;
       setUser(name);
+      const role = decoded.Rol[0].authority;
+      setRole(role);
     }
   }, []);
 
@@ -96,8 +99,8 @@ export default function CrearCliente() {
   return (
     <>        
       <Box display={"flex"} shadow={useColorModeValue('rgba(0, 0, 0, 0.25)')}>
-        <Sidebar />
-        <Box flex="1" p={4}>
+      <Sidebar roleName={role} username={user} />
+      <Box flex="1" p={4}>
           <Box maxW="900px" mx="auto" p={4} mt={8} >
             <Text fontSize="2xl" fontWeight="bold" mb={6} mt={-10}>Crear Cliente</Text>
             {successMessage && (

@@ -18,7 +18,8 @@ export default function CrearUsuario() {
     const [correo, setCorreo] = useState("");
     const [sexo, setSexo] = useState("");
     const [fechaNacimiento, setFechaNacimiento] = useState("");
-    const [user, setUser] = useState("");
+    const [role, setRole] = useState("");
+    const [user, setUser] = useState("");    
     const [tipoId, setTipoId] = useState([]);
     const [selectedTipoId, setSelectedTipoId] = useState("");
     const { idUsua } = useParams(); 
@@ -33,14 +34,16 @@ export default function CrearUsuario() {
       
 
 
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      const decoded = jwtDecode(token);
-      const name = decoded.sub;
-      setUser(name);
-    }
-  }, []);
+    useEffect(() => {
+      const token = localStorage.getItem("token");
+      if (token) {
+        const decoded = jwtDecode(token);
+        const name = decoded.sub;
+        setUser(name);
+        const role = decoded.Rol[0].authority;
+        setRole(role);
+      }
+    }, []);
 
   
   useEffect(() => {
@@ -89,8 +92,8 @@ export default function CrearUsuario() {
   return (
     <>
       <Box display={"flex"} shadow={useColorModeValue('rgba(0, 0, 0, 0.25)')}>
-        <Sidebar />
-        <Box flex="1" p={4}>
+      <Sidebar roleName={role} username={user} />
+      <Box flex="1" p={4}>
           <Box maxW="900px" mx="auto" p={4} mt={8}>
             <Text fontSize="2xl" fontWeight="bold" mb={6} mt={-10}>Editar Usuario</Text>
             {successMessage && (

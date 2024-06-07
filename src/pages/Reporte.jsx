@@ -6,6 +6,7 @@ import { MdOutlineQueryStats } from "react-icons/md";
 import { FaMoneyCheckAlt } from "react-icons/fa";
 import instance from "../axios.js";
 import axios from "axios";
+import { jwtDecode } from "jwt-decode";
 import {
     FaPenSquare,
     FaUsers,
@@ -19,6 +20,19 @@ const Reporte = () => {
     const [createdPlanes, setCreatedPlanes] = useState([]);
     const [valorTotal, setValorTotal] = useState([]);
     const [ventaTotal, setVentaTotal] = useState([]);
+    const [role, setRole] = useState("");
+    const [user, setUser] = useState("");
+
+    useEffect(() => {
+        const token = localStorage.getItem("token");
+        if (token) {
+          const decoded = jwtDecode(token);
+          const name = decoded.sub;
+          setUser(name);
+          const role = decoded.Rol[0].authority;
+          setRole(role);
+        }
+      }, []);
 
     useEffect(() => {
         const fetchDestinos = async () => {
@@ -100,7 +114,7 @@ const Reporte = () => {
 
     return (
         <Box display="flex">
-            <Sidebar />
+            <Sidebar roleName={role} username={user} />
             <Flex
                 flexDirection="column"
                 flex="1"

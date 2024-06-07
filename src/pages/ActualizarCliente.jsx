@@ -20,12 +20,13 @@ export default function ActualizarCliente() {
   const [correo, setCorreo] = useState("");
   const [sexo, setSexo] = useState("");
   const [fechaNacimiento, setFechaNacimiento] = useState("");
-  const [user, setUser] = useState("");
   const [tipoId, setTipoId] = useState([]);
   const { idClie } = useParams(); 
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [role, setRole] = useState("");
+  const [user, setUser] = useState("");
+
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
@@ -35,14 +36,16 @@ export default function ActualizarCliente() {
     return `${year}-${month}-${day}`;
 };
 
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (token) {
-        const decoded = jwtDecode(token);
-        const name = decoded.sub;
-        setUser(name);
-    }
-  }, []);
+useEffect(() => {
+  const token = localStorage.getItem("token");
+  if (token) {
+    const decoded = jwtDecode(token);
+    const name = decoded.sub;
+    setUser(name);
+    const role = decoded.Rol[0].authority;
+    setRole(role);
+  }
+}, []);
 
   useEffect(() => {
     const fetchCliente = async () => {

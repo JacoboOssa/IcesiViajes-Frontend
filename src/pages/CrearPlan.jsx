@@ -53,7 +53,8 @@ const CrearPlan = () => {
     const [fechaInicio, setFechaInicio] = useState();
     const [fechaFin, setFechaFin] = useState();
     const [valor, setValor] = useState();
-    const [user, setUser] = useState("");
+    const [role, setRole] = useState("");
+    const [user, setUser] = useState("");    
     const [usuario, setUsuario] = useState({});
     const [planId, setPlanId] = useState(null);
 
@@ -77,14 +78,16 @@ const CrearPlan = () => {
       });
       
 
-    useEffect(() => {
+      useEffect(() => {
         const token = localStorage.getItem("token");
         if (token) {
-            const decoded = jwtDecode(token);
-            const name = decoded.sub;
-            setUser(name);
+          const decoded = jwtDecode(token);
+          const name = decoded.sub;
+          setUser(name);
+          const role = decoded.Rol[0].authority;
+          setRole(role);
         }
-    }, []);
+      }, []);
 
     useEffect(() => {
         const fetchDestinos = async () => {
@@ -251,8 +254,8 @@ const CrearPlan = () => {
 
     return (
         <Flex>
-            <Sidebar />
-            <Box margin="0 auto" mt={12} mb={20} width="80%">
+        <Sidebar roleName={role} username={user} />
+        <Box margin="0 auto" mt={12} mb={20} width="80%">
                 <Stepper index={activeStep} size="lg">
                     {steps.map((step, index) => (
                         <Step key={index} onClick={() => setActiveStep(index)}>
