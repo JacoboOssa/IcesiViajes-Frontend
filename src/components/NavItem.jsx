@@ -9,10 +9,10 @@ import {
     MenuList
 } from '@chakra-ui/react'
 
-export default function NavItem({ icon, title, description, active, navSize }) {
+export default function NavItem({ icon, title, description, active, navSize, onClick }) {
     return (
         <Flex
-            mt={30}
+            mt={5}
             flexDir="column"
             w="100%"
             alignItems={navSize == "small" ? "center" : "flex-start"}
@@ -24,6 +24,7 @@ export default function NavItem({ icon, title, description, active, navSize }) {
                     borderRadius={8}
                     _hover={{ textDecor: 'none', backgroundColor: "#AEC8CA" }}
                     w={navSize == "large" && "100%"}
+                    onClick={onClick} // Manejar el evento onClick aquí
                 >
                     <MenuButton w="100%">
                         <Flex>

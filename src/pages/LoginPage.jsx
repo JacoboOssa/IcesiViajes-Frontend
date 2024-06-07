@@ -6,6 +6,8 @@ import { useAuthContext } from "../context/AuthContext.jsx";
 import instance from "../axios.js";
 import ErrorAlert from "../components/ErrorAlert.jsx";
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom'; // Cambiado a useNavigate
+
 
 import {
   Flex,
@@ -24,8 +26,8 @@ import {
 
 
 function LoginPage() {
-  const {authData, login, logout} = useAuthContext()
-  //const navigate = useNavigate(); // Para redireccionar al usuario
+  const {login} = useAuthContext()
+  const navigate = useNavigate(); // Para redireccionar al usuario
   const [errorMessage, setErrorMessage] = useState('');
 
 
@@ -47,14 +49,10 @@ function LoginPage() {
                 const token = response.data.token;
               // Verifica si se devolvió un token válido
               if (token) {
-                localStorage.setItem('token', token);
-                
-                
-                //console.log(token)
-                
-                
+                localStorage.setItem('token', token)    
                 login();
-                //navigate("/home"); // Navegar a home luego de loguearse
+
+                navigate("/home"); // Navegar a home luego de loguearse
               } else {
                 // No se recibió un token válido
                 setErrorMessage("Incorrect user or password");
@@ -119,7 +117,7 @@ function LoginPage() {
                 {formik.errors.password}
               </FormErrorMessage>
             </FormControl>
-            <Stack spacing={10}>
+            <Stack spacing={5}>
               <Stack
                 direction={{ base: 'column', sm: 'row' }}
                 align={'start'}
