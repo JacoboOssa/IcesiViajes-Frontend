@@ -54,7 +54,7 @@ export default function TableManageUsuarios({ data, header1, header2, header3, h
                                     <Td textAlign="center">{item.username}</Td>
                                     <Td textAlign="center">{item.nombre}</Td>
                                     <Td textAlign="center">{item.identificacion}</Td>
-                                    <Td textAlign="center">{item.rol}</Td>
+                                    <Td textAlign="center">{item.authorities[0].authority}</Td>
                                     <Td textAlign="center">{item.estado}</Td>
                                     <Td textAlign="center">
                                         <ButtonGroup variant="outline" spacing="2">

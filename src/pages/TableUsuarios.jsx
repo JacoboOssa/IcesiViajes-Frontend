@@ -46,6 +46,7 @@ export default function TableUsuarios(){
 
         fetchData();
     }, []);
+    console.log(usuarios)
 
     // Filtra los datos para mostrar solo la página actual
     const filteredData = usuarios.filter((item) => {
