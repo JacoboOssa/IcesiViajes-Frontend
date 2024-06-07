@@ -44,8 +44,11 @@ import { CiImageOn } from "react-icons/ci";
 import {jwtDecode} from "jwt-decode";
 import instance from "../axios.js";
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom'; // Cambiado a useNavigate
+
 
 const CrearPlan = () => {
+    const navigate = useNavigate(); // Para redireccionar al usuario
     const [codigoPlan, setCodigoPlan] = useState("");
     const [descripcionPlan, setDescripcionPlan] = useState("");
     const [nombrePlan, setNombrePlan] = useState("");
@@ -168,11 +171,11 @@ const CrearPlan = () => {
         setActiveStep(activeStep - 1);
     };
 
+   
+
     const searchUser = async () => {
         try {
-            const response = await axios.get(`${instance.getUri()}/usuario/buscar`, {
-                params: { login: "darpa" }
-            });
+            const response = await axios.get(instance.getUri()+"/usuario/buscar/"+user);
             return response.data;
         } catch (error) {
             console.error("Error searching user:", error);
@@ -204,7 +207,6 @@ const CrearPlan = () => {
                 descripcionSolicitud: descripcionPlan,
                 nombre: nombrePlan,
                 cantidadPersonas: cantidadPersonas,
-                fechaSolicitud: new Date(),
                 fechaInicioViaje: fechaInicio,
                 fechaFinViaje: fechaFin,
                 valorTotal: valor,
@@ -215,6 +217,7 @@ const CrearPlan = () => {
             };
     
             const response = await axios.post(instance.getUri() + "/plan/crear", newPlan);
+            console.log(response.data)
             setPlanId(response.data.idPlan); // Set the plan ID from the created plan
             console.log(planId);
         } catch (error) {
@@ -228,10 +231,9 @@ const CrearPlan = () => {
         }
     };
 
-    
+
 
     const handleSaveDetallePlan = async () => {
-        console.log(selectedDestino)
         try {
             const newDetallePlan = {
                 alimentacion: alimentacion ? 's' : 'n',
@@ -246,6 +248,7 @@ const CrearPlan = () => {
                 usuCreador: user,
                 estado: "A",
             };
+            console.log(planId)
             await axios.post(instance.getUri() + "/detalleplan/crear", newDetallePlan);
         } catch (error) {
             console.error("Error creando detalle del plan:", error);
@@ -468,6 +471,7 @@ const Form3 = ({planId}) => {
                     'Content-Type': 'multipart/form-data',
                 },
             });
+            navigate("/adminplanes");
 
             console.log('Imágenes subidas correctamente:', response.data);
         } catch (error) {

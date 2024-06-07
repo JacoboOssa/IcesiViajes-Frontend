@@ -37,7 +37,7 @@ import * as Yup from 'yup';
 const validationSchema = Yup.object().shape({
     nombreDestino: Yup.string().required('El nombre del destino es obligatorio'),
     codigo: Yup.string().required('El código es obligatorio').max(5,"El codigo es de maximo 5 caracteres"),
-    descripcion: Yup.string().required('La descripción es obligatoria'),
+    descripcion: Yup.string().required('La descripción es obligatoria').max(300, "La descripcion es superior a 300 caracteres"),
     tipoDestino: Yup.object().shape({
         nombre: Yup.string().required('El tipo de destino es obligatorio')
     }).nullable().required('El tipo de destino es obligatorio')
@@ -190,7 +190,7 @@ export default function TablePlanes() {
                     <ButtonGroup>
                         <Button leftIcon={<IoMdAdd />} colorScheme="blue" onClick={() => navigate('/crearplanes')} mt={20} mb={-20}>Nuevo Plan</Button>
                         <>
-                            {role === "ADMIN" && (<Button leftIcon={<IoMdAdd />} colorScheme="blue" mt={20} mb={-20} ml={-30}>Nuevo Destino</Button>)}
+                            {role === "ADMIN" && (<Button leftIcon={<IoMdAdd />} onClick={onOpen} colorScheme="blue" mt={20} mb={-20} ml={-30}>Nuevo Destino</Button>)}
                             {/* <Button leftIcon={<IoMdAdd />} onClick={onOpen} colorScheme="blue" mt={20} mb={-20} ml={-30}>Nuevo Destino</Button> */}
                             <Modal isOpen={isOpen} onClose={onClose}>
                                 <ModalOverlay />

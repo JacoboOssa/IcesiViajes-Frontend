@@ -205,7 +205,6 @@ const ActualizarPlanes = () => {
                 descripcionSolicitud: descripcionPlan,
                 nombre: nombrePlan,
                 cantidadPersonas: cantidadPersonas,
-                fechaSolicitud: new Date(),
                 fechaInicioViaje: fechaInicio,
                 fechaFinViaje: fechaFin,
                 valorTotal: valor,
